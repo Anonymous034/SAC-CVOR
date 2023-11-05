@@ -1,13 +1,8 @@
 ### Test Results
-
+![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/reward.png)
+![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/mean_reward.png)
 
 ### Usage OF CVOR
-
-#### RUN SAC WITH CVOR
-
-```
-python main.py --env-name Humanoid-v2 --alpha 0.05 --cvor True
-```
 
 #### RUN SAC BASELINE
 
@@ -15,6 +10,11 @@ python main.py --env-name Humanoid-v2 --alpha 0.05 --cvor True
 python main.py --env-name Humanoid-v2 --alpha 0.05
 ```
 
+#### RUN SAC WITH CVOR
+
+```
+python main.py --env-name Humanoid-v2 --alpha 0.05 --cvor True
+```
 
 ### Implementation OF CVOR (IN sac.py line 83-110)
 ```python
