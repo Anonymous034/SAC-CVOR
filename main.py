@@ -30,8 +30,8 @@ parser.add_argument('--seed', type=int, default=1, metavar='N',
                     help='random seed (default: 123456)')
 parser.add_argument('--batch_size', type=int, default=256, metavar='N',
                     help='batch size (default: 256)')
-parser.add_argument('--episode_steps', type=int, default=3000, metavar='N',
-                    help='maximum number of episode (default: 3000)')
+parser.add_argument('--episode_steps', type=int, default=4000, metavar='N',
+                    help='maximum number of episode (default: 4000)')
 parser.add_argument('--hidden_size', type=int, default=256, metavar='N',
                     help='hidden size (default: 256)')
 parser.add_argument('--updates_per_step', type=int, default=1, metavar='N',
