@@ -18,7 +18,6 @@ python main.py --env-name Humanoid-v2 --alpha 0.05
 
 ### Implementation OF CVOR (IN sac.py line 83-110)
 ```python
-        ...
         policy_loss_bak = ((self.alpha * log_pi) - min_qf_pi)
         policy_loss = policy_loss_bak.mean()
         if not self.cvor:                                      # baseline 
@@ -51,7 +50,6 @@ python main.py --env-name Humanoid-v2 --alpha 0.05
             self.policy_optim.zero_grad()
             CVor_loss.mean().backward()
             self.policy_optim.step()
-        ...
 ```
 
 
