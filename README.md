@@ -1,3 +1,64 @@
+### Test Results
+
+
+### Usage OF CVOR
+
+#### RUN SAC WITH CVOR
+
+```
+python main.py --env-name Humanoid-v2 --alpha 0.05 --cvor True
+```
+
+#### RUN SAC BASELINE
+
+```
+python main.py --env-name Humanoid-v2 --alpha 0.05
+```
+
+
+### Implementation OF CVOR (IN sac.py line 83-110)
+```python
+        ...
+        policy_loss_bak = ((self.alpha * log_pi) - min_qf_pi)
+        policy_loss = policy_loss_bak.mean()
+        if not self.cvor:                                      # baseline 
+            self.policy_optim.zero_grad()
+            policy_loss.backward()
+            self.policy_optim.step()
+        else:                                                  # with cvor
+            policy_loss_bak = policy_loss_bak.squeeze()
+
+            '''
+            #########################################
+            main part for CVor with NN control variate
+            #########################################
+            '''
+            self.deps_w = nn.Sequential(
+                nn.Linear(256, 512),
+                nn.Tanh(),
+                nn.Linear(512, 256),
+            )
+
+            deps_w = self.deps_w(policy_loss_bak)
+            deps_w = (deps_w - deps_w.mean()) / (deps_w.std() + 1e-5)
+            deps_v = torch.exp(deps_w - deps_w.detach()).mean()
+            CVor = torch.exp((torch.exp(deps_v - deps_v.detach()) - torch.exp(deps_w - deps_w.detach())))
+            CVor_loss = CVor * policy_loss_bak
+            '''
+            #########################################
+            '''
+
+            self.policy_optim.zero_grad()
+            CVor_loss.mean().backward()
+            self.policy_optim.step()
+        ...
+```
+
+
+
+
+
+
 ### Description
 ------------
 Reimplementation of [Soft Actor-Critic Algorithms and Applications](https://arxiv.org/pdf/1812.05905.pdf) and a deterministic variant of SAC from [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement
