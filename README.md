@@ -1,6 +1,7 @@
 ### Test Results
-![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/reward.png)
-![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/mean_reward.png)
+![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/1.png)
+![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/2.png)
+![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/3.png)
 
 ### Usage OF CVOR
 
