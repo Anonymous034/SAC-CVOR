@@ -94,16 +94,16 @@ class SAC(object):
             main part for CVor with NN control variate
             #########################################
             '''
-            self.deps_w = nn.Sequential(
+            self.F = nn.Sequential(
                 nn.Linear(256, 512),
                 nn.Tanh(),
                 nn.Linear(512, 256),
-            )
+            ).to('cuda')
 
-            deps_w = self.deps_w(policy_loss_bak)
-            deps_w = (deps_w - deps_w.mean()) / (deps_w.std() + 1e-5)
-            deps_v = torch.exp(deps_w - deps_w.detach()).mean()
-            CVor = torch.exp((torch.exp(deps_v - deps_v.detach()) - torch.exp(deps_w - deps_w.detach())))
+            F_value = self.F(policy_loss_bak)
+            F_value = (F_value - F_value.mean()) / (F_value.std() + 1e-5)
+            tilde_F_value = torch.exp(F_value - F_value.detach()).mean()
+            CVor = torch.exp((torch.exp(tilde_F_value - tilde_F_value.detach()) - torch.exp(F_value - F_value.detach())))
             CVor_loss = CVor * policy_loss_bak
             '''
             #########################################
