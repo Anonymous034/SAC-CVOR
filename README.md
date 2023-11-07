@@ -1,7 +1,7 @@
 ### Test Results
 
 Humanoid-v2 (random seed=123456, alpha=0.05)
-![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/figures/1.png)
+![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/figures/2.png)
 
 Walker2d-v2 (random seed=1234, alpha=0.2)
 ![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/figures/Walker2d-v2.png)
@@ -63,7 +63,6 @@ python main.py --env-name Humanoid-v2 --alpha 0.05 --cvor True
 
 
 
-------------
 ------------
 
 ### Description
