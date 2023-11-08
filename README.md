@@ -6,6 +6,9 @@ Humanoid-v2 (random seed=123456, alpha=0.05)
 Humanoid-v2 (random seed=1, alpha=0.05)
 ![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/figures/Humanoid_v2_1.png)
 
+Humanoid-v2 (random seed=12, alpha=0.05)
+![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/figures/Humanoid_v2_12.png)
+
 Humanoid-v2 (random seed=1234, alpha=0.05)
 ![Image text](https://github.com/Anonymous034/SAC-CVOR/blob/main/figures/Humanoid_v2_1234.jpg)
 
