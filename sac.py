@@ -80,7 +80,7 @@ class SAC(object):
         qf1_pi, qf2_pi = self.critic(state_batch, pi)
         min_qf_pi = torch.min(qf1_pi, qf2_pi)
 
-        policy_loss_bak = ((self.alpha * log_pi) - min_qf_pi)
+        policy_loss_bak = ((self.alpha * log_pi) - min_qf_pi).to('cuda')
         policy_loss = policy_loss_bak.mean()  # Jπ = 𝔼st∼D,εt∼N[α * logπ(f(εt;st)|st) − Q(st,f(εt;st))]
         if not self.cvor:
             self.policy_optim.zero_grad()
@@ -99,6 +99,8 @@ class SAC(object):
                 nn.Tanh(),
                 nn.Linear(512, 256),
             ).to('cuda')
+
+            # F_value = self.alpha * policy_loss_bak.detach() * log_pi / policy_loss_bak.mean().detach()
 
             F_value = self.F(policy_loss_bak)
             F_value = (F_value - F_value.mean()) / (F_value.std() + 1e-5)

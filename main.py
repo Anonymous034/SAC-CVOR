@@ -26,12 +26,12 @@ parser.add_argument('--alpha', type=float, default=0.2, metavar='G',
                             term against the reward (default: 0.2)')
 parser.add_argument('--automatic_entropy_tuning', type=bool, default=False, metavar='G',
                     help='Automaically adjust α (default: False)')
-parser.add_argument('--seed', type=int, default=1, metavar='N',
+parser.add_argument('--seed', type=int, default=123, metavar='N',
                     help='random seed (default: 123456)')
 parser.add_argument('--batch_size', type=int, default=256, metavar='N',
                     help='batch size (default: 256)')
-parser.add_argument('--episode_steps', type=int, default=4000, metavar='N',
-                    help='maximum number of episode (default: 4000)')
+parser.add_argument('--max_episode', type=int, default=3001, metavar='N',
+                    help='maximum number of episode (default: 3001)')
 parser.add_argument('--hidden_size', type=int, default=256, metavar='N',
                     help='hidden size (default: 256)')
 parser.add_argument('--updates_per_step', type=int, default=1, metavar='N',
@@ -60,9 +60,17 @@ np.random.seed(args.seed)
 # Agent
 agent = SAC(env.observation_space.shape[0], env.action_space, args)
 
+if args.cvor:
+    filename = 'SAC_CVOR_seed_' + str(args.seed)
+else:
+    filename = 'SAC_BASELINE_seed_' + str(args.seed)
+
 #Tesnorboard
-writer = SummaryWriter('runs/{}_SAC_{}_{}_{}'.format(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"), args.env_name,
-                                                             args.policy, "autotune" if args.automatic_entropy_tuning else ""))
+writer = SummaryWriter('runs/{}_{}_{}_{}_{}'.format(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"),
+                                                    args.env_name,
+                                                    filename,
+                                                    args.policy,
+                                                    "autotune" if args.automatic_entropy_tuning else ""))
 
 # Memory
 memory = ReplayMemory(args.replay_size, args.seed)
@@ -109,7 +117,7 @@ for i_episode in itertools.count(1):
 
         state = next_state
 
-    if episode_steps > args.episode_steps:
+    if i_episode > args.max_episode:
         break
 
     writer.add_scalar('reward/train', episode_reward, i_episode)
@@ -132,7 +140,6 @@ for i_episode in itertools.count(1):
                 state = next_state
             avg_reward += episode_reward
         avg_reward /= episodes
-
 
         writer.add_scalar('avg_reward/test', avg_reward, i_episode)
 
