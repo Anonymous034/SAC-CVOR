@@ -100,19 +100,17 @@ class SAC(object):
                 nn.Linear(512, 256),
             ).to('cuda')
 
-            # F_value = self.alpha * policy_loss_bak.detach() * log_pi / policy_loss_bak.mean().detach()
-
             F_value = self.F(policy_loss_bak)
             F_value = (F_value - F_value.mean()) / (F_value.std() + 1e-5)
             tilde_F_value = torch.exp(F_value - F_value.detach()).mean()
             CVor = torch.exp((torch.exp(tilde_F_value - tilde_F_value.detach()) - torch.exp(F_value - F_value.detach())))
-            CVor_loss = CVor * policy_loss_bak
+            CVor_loss_1 = CVor * policy_loss_bak
             '''
             #########################################
             '''
 
             self.policy_optim.zero_grad()
-            CVor_loss.mean().backward()
+            CVor_loss_1.mean().backward()
             self.policy_optim.step()
 
         if self.automatic_entropy_tuning:
