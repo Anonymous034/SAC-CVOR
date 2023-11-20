@@ -1,3 +1,11 @@
+### 
+
+The formulation of the CVor (Control Variate Operator) can be articulated as follows:
+
+![image](https://github.com/Anonymous034/SAC-CVOR/assets/110434246/b08f4a1b-50e2-4670-a89d-1b232e2de8c1)
+
+<span style="color: red; font-weight: bold;">Note that we need to use $\bot(\mathcal{L}_{\theta})$ to eliminate the gradient information of \mathcal{L}_{\theta}.</span>
+
 ### Test Results
 
 Humanoid-v2 (random seed=123456, alpha=0.05)
