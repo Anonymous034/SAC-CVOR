@@ -27,6 +27,12 @@ class SAC(object):
         self.critic_target = QNetwork(num_inputs, action_space.shape[0], args.hidden_size).to(self.device)
         hard_update(self.critic_target, self.critic)
 
+        self.F = nn.Sequential(
+            nn.Linear(256, 512),
+            nn.Tanh(),
+            nn.Linear(512, 256),
+        ).to('cuda')
+
         if self.policy_type == "Gaussian":
             # Target Entropy = −dim(A) (e.g. , -6 for HalfCheetah-v2) as given in the paper
             if self.automatic_entropy_tuning is True:
@@ -94,13 +100,7 @@ class SAC(object):
             main part for CVor with NN control variate
             #########################################
             '''
-            self.F = nn.Sequential(
-                nn.Linear(256, 512),
-                nn.Tanh(),
-                nn.Linear(512, 256),
-            ).to('cuda')
-
-            F_value = self.F(policy_loss_bak)
+            F_value = self.F(policy_loss_bak) + 0.1 * policy_loss_bak
             F_value = (F_value - F_value.mean()) / (F_value.std() + 1e-5)
             tilde_F_value = torch.exp(F_value - F_value.detach()).mean()
             CVor = torch.exp((torch.exp(tilde_F_value - tilde_F_value.detach()) - torch.exp(F_value - F_value.detach())))
