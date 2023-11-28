@@ -1,4 +1,48 @@
-### 
+We have developed a Python script, `CVor_grad_mean_var.py`, specifically designed for the selection of the F function in computational processes.
+
+Here are some illustrative examples demonstrating the usage of the F function:
+
+```python
+seed = 42
+
+# ... [Additional relevant code]
+
+# Calculation of the F value
+F_value = self.F(policy_loss_bak) + 0.01 * policy_loss_bak      # This function resembles the residual learning concept used in ResNet architecture.
+```
+
+**Results Visualization:**
+
+![Resulting Graph](https://github.com/Anonymous034/SAC-CVOR/assets/110434246/57826c25-ba58-4130-8403-b554722d1f26)
+
+```python
+seed = 0
+
+# ... [Additional relevant code]
+
+# Calculation of the F value
+F_value = 0.01 * policy_loss_bak
+```
+
+**Results Visualization:**
+
+![image](https://github.com/Anonymous034/SAC-CVOR/assets/110434246/c0778cc9-4cd1-4667-b652-ca8d0ba8436c)
+
+
+```python
+seed = 123
+
+# ... [Additional relevant code]
+
+# Calculation of the F value
+F_value = self.F(policy_loss_bak) + 0.15 * policy_loss_bak
+```
+
+**Results Visualization:**
+
+![image](https://github.com/Anonymous034/SAC-CVOR/assets/110434246/312165fe-495d-4dd2-b368-1ce2fc672ae4)
+
+### Correctness of CVor
 
 The formulation of the CVor (Control Variate Operator) can be articulated as follows:
 
