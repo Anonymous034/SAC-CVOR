@@ -1,6 +1,6 @@
 ### How to Select an Appropriate F Function
 
-We have developed a Python script, `CVor_grad_mean_var.py`, specifically designed for the selection of the F function in computational processes.
+We have developed a Python script, `CVor_grad_mean_var.py`, specifically designed for the selection of the F function.
 
 Here are some illustrative examples demonstrating the usage of the F function:
 
